@@ -1,9 +1,11 @@
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from ml.loader import get_full_dataset
 import seaborn as sns
 import io
 import base64
-from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 
 def cechy(vol, sulfur, chlor, sulph):
     df = get_full_dataset()
@@ -65,6 +67,8 @@ def plot_feature_importance(model, feature_names):
     return None
 
 def generate_classification_report(y_true, y_pred):
+    accuracy = accuracy_score(y_true, y_pred)
+    print(f'Accuracy: {accuracy * 100:.2f}%') #dodac do aplikacji w raporcie
     report = classification_report(y_true, y_pred, target_names=['Białe', 'Czerwone'])
     return report
 

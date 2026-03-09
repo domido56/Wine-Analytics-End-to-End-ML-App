@@ -22,9 +22,6 @@ def get_test_data():
     X = df[features]
     y = df[target]
     _, X_test, _, y_test = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)
-    #SPRAWDZIC CZEMU TAK
-    scaler = joblib.load("models/scaler.pkl")
-    X_test = scaler.transform(X_test)
 
     return X_test, y_test
 
@@ -32,6 +29,5 @@ def load_models():
     rf = joblib.load("models/rf.pkl")
     knn = joblib.load("models/knn.pkl")
     svm = joblib.load("models/svm.pkl")
-    scaler = joblib.load("models/scaler.pkl")
-    return rf, knn, svm, scaler
+    return rf, knn, svm
 

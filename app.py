@@ -4,7 +4,7 @@ from ml.visualizer import cechy, plot_conf_matrix, plot_feature_importance, gene
 
 app = Flask(__name__)
 
-rf_model, knn_model, svm_model, scaler = load_models()
+rf_model, knn_model, svm_model = load_models()
 
 model_dict = {
     "random_forest": rf_model,
@@ -35,13 +35,13 @@ def predict():
 
         image_base64 = cechy(vol, sulfur, chlor, sulph)
 
-        X = scaler.transform([[vol, sulfur, chlor, sulph]])
+        X_single = [[vol, sulfur, chlor, sulph]]
         for name, model in {
             "random_forest": rf_model,
             "knn": knn_model,
             "svm": svm_model
         }.items():
-            result = model.predict(X)[0]
+            result = model.predict(X_single)[0]
             predictions[name] = "Czerwone" if result == 1 else "Białe"
 
     return render_template("form.html", predictions=predictions, vol=vol, sulfur=sulfur, chlor=chlor, sulph=sulph,

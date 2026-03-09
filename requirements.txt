@@ -2,6 +2,7 @@ flask
 joblib
 numpy
 pandas
+imbalanced-learn
 scikit-learn
 matplotlib
 seaborn
