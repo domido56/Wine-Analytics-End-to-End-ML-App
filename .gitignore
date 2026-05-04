@@ -1,0 +1,13 @@
+# python
+*.pyc
+venv/
+.env
+
+# sql
+*.mdf
+*.ldf
+*.tmp
+
+# IDE
+.vscode/
+.idea/
