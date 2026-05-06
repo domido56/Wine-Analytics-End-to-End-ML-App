@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 from ml.loader import get_full_dataset, load_models, get_test_data, features, target
-from ml.visualizer import cechy, plot_conf_matrix, plot_feature_importance, generate_classification_report
+from ml.visualizer import cechy, plot_conf_matrix, generate_classification_report
 
 app = Flask(__name__)
 
@@ -57,14 +57,12 @@ def model_detail(model_name):
     y_pred = model.predict(X_test)
 
     cm_img = plot_conf_matrix(y_test, y_pred, model_name)
-    #fi_img = plot_feature_importance(model, features)
     report = generate_classification_report(y_test, y_pred)
 
     return render_template("model_detail.html", 
                            model_name=display_names.get(model_name, model_name), 
                            report=report,
                            confusion_matrix_img=cm_img)
-                           #feature_importance_img=fi_img)
 
 
 if __name__ == "__main__":
