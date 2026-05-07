@@ -1,5 +1,7 @@
 # python
-*.pyc
+__pycache__/
+*.py[cod]
+*$py.class
 venv/
 .env
 
@@ -11,3 +13,6 @@ venv/
 # IDE
 .vscode/
 .idea/
+
+# power bi
+*.pbix.temp
