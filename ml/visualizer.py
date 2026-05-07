@@ -17,21 +17,21 @@ def cechy(vol, sulfur, chlor, sulph):
 
     # Wykres 1
     plt.subplot(1, 2, 1)
-    sns.scatterplot(data=df, x='volatile acidity', y='total sulfur dioxide',
-                    hue='color_bin', palette=hex_palette, alpha=0.6, edgecolor=None)
+    sns.scatterplot(data=df, x='VolatileAcidity', y='TotalSulfurDioxide',
+                    hue='ColorBin', palette=hex_palette, alpha=0.6, edgecolor=None)
     plt.scatter(vol, sulfur, color='black', marker='+', s=200, label='Twoje dane')
-    plt.xlabel("volatile acidity")
-    plt.ylabel("total sulfur dioxide")
+    plt.xlabel("VolatileAcidity")
+    plt.ylabel("TotalSulfurDioxide")
     plt.title("Kwasowość lotna vs Całkowita zawartość dwutlenku siarki")
     plt.legend()
 
     # Wykres 2
     plt.subplot(1, 2, 2)
-    sns.scatterplot(data=df, x='chlorides', y='sulphates',
-                    hue='color_bin', palette=hex_palette, alpha=0.6, edgecolor=None)
+    sns.scatterplot(data=df, x='Chlorides', y='Sulphates',
+                    hue='ColorBin', palette=hex_palette, alpha=0.6, edgecolor=None)
     plt.scatter(chlor, sulph, color='black', marker='+', s=200, label='Twoje dane')
-    plt.xlabel("chlorides")
-    plt.ylabel("sulphates")
+    plt.xlabel("Chlorides")
+    plt.ylabel("Sulphates")
     plt.title("Chlorki vs Siarczany")
     plt.legend()
 
@@ -56,15 +56,6 @@ def plot_conf_matrix(y_true, y_pred, model_name=None):
     ax.set_ylabel('Rzeczywista')
     ax.set_title('Macierz pomyłek')
     return convert_to_base64(fig)
-
-def plot_feature_importance(model, feature_names):
-    if hasattr(model, 'feature_importances_'):
-        importances = model.feature_importances_
-        fig, ax = plt.subplots()
-        sns.barplot(x=importances, y=feature_names, ax=ax)
-        ax.set_title('Ważność cech')
-        return convert_to_base64(fig)
-    return None
 
 def generate_classification_report(y_true, y_pred):
     accuracy = accuracy_score(y_true, y_pred)
