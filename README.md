@@ -1,8 +1,8 @@
-# Wine Color Classification
+# Wine Color Classification & Analysis (End-to-End Project)
 
 ## Opis projektu
 
-Projekt polega na klasyfikacji koloru wina (**białe / czerwone**) na podstawie jego cech fizykochemicznych z wykorzystaniem metod uczenia maszynowego.
+Projekt polega na klasyfikacji koloru wina (**białe / czerwone**) na podstawie jego cech fizykochemicznych z wykorzystaniem metod uczenia maszynowego. Projekt został rozbudowany o pełną architekturę danych: od procesu ETL, przez bazę danych SQL Server, aż po analitykę w Power BI.
 
 Celem było porównanie skuteczności trzech popularnych algorytmów:
 - k-Nearest Neighbors (kNN)
@@ -11,28 +11,31 @@ Celem było porównanie skuteczności trzech popularnych algorytmów:
 
 Projekt obejmuje zarówno część analityczną (trenowanie i porównanie modeli), jak i aplikację webową umożliwiającą interaktywną predykcję.
 
+## Architektura i przepływ danych
+Projekt realizuje pełny obieg danych w systemie:
+1. **Źródło:** Dane z plików CSV (Wine Quality Dataset).
+2. **ETL:** Skrypt Python (`etl_process.py`) czyści i ładuje dane do bazy SQL.
+3. **Storage:** Relacyjna baza danych **MS SQL Server**.
+4. **ML & Web:** Aplikacja Flask pobiera dane z SQL i serwuje predykcje.
+5. **BI:** Power BI łączy się z bazą SQL w celu wizualizacji trendów.
+
 ## Dane
 
 Wykorzystano zbiór danych **Wine Quality Dataset** z repozytorium UCI Machine Learning Repository.
 
 Zbiór zawiera parametry fizykochemiczne wina, m.in.:
-- volatile acidity
-- chlorides
-- total sulfur dioxide
-- sulphates
-- alcohol
+- VolatileAcidity
+- Chlorides
+- TotalSulfurDioxide
+- Sulphates
+- Alcohol
 
-## Przygotowanie danych
+## Przygotowanie danych i trenowanie
 
-W ramach preprocessingu wykonano:
-- standaryzację cech (`StandardScaler`)
-- zrównoważenie klas metodą **SMOTE**
-- podział na zbiór treningowy i testowy
-
-## Trenowanie modeli
-
-Modele zostały zoptymalizowane przy użyciu:
-- `GridSearchCV` (dobór hiperparametrów)
+W ramach procesu ML (plik `train_models.py`) wykonano:
+- **Preprocessing:** Standaryzacja (StandardScaler) oraz zrównoważenie klas (SMOTE) wewnątrz potoków (Pipelines).
+- **Optymalizacja:** GridSearchCV (dobór hiperparametrów) oraz walidacja krzyżowa (StratifiedKFold).
+- **Baza SQL:** Modele trenowane i testowane są na danych pobieranych bezpośrednio z bazy SQL.
 
 Porównywane modele:
 - kNN
@@ -54,44 +57,48 @@ Dodatkowo analizowano:
 Projekt zawiera aplikację webową umożliwiającą predykcję koloru wina na podstawie danych wejściowych użytkownika.
 
 ### Technologie
-- Python
-- Flask
-- scikit-learn
-- HTML / CSS
+- **Backend:** Python (Flask, SQLAlchemy, pandas, scikit-learn)
+- **Baza danych:** MS SQL Server
+- **Frontend:** HTML / CSS / Jinja2
+- **BI:** Power BI Desktop
 
 ### Funkcjonalności
 - wprowadzanie danych przez suwaki
 - predykcja koloru wina dla 3 modeli
-- wizualizacja danych na wykresach (scatter plot)
+- wizualizacja danych na wykresach (scatter plot) generowanych z bazy SQL
 - macierze pomyłek dla każdego modelu
 - szczegółowe statystyki modeli (classification report)
 
 ## Przykładowe zdjęcia z aplikacji
+### Aplikacja webowa
 <img width="1759" height="743" alt="strona_start_wykresy" src="https://github.com/user-attachments/assets/1bb8631d-2732-423b-b5af-ea0c9abed129" />
 
 <img width="1709" height="714" alt="raport_svm" src="https://github.com/user-attachments/assets/3215099f-ae2f-4fc5-9782-d4db3be29181" />
 
-## Instalacja 
-### 1. Klonowanie repozytorium
-Pobierz projekt na swój komputer:
+### Dashboard Power BI
+![Dashboard Power BI](docs/dashboard_screenshot.png)
+
+## Instalacja i uruchomienie
+### 1. Baza Danych
+Utwórz bazę `WineWarehouse` w SQL Server i uruchom skrypt SQL dostępny w dokumentacji, aby przygotować tabelę `WineData`.
+
+### 2. Klonowanie i środowisko wirtualne
 ```bash
 git clone [https://github.com/domido56/Wine_prediction.git](https://github.com/domido56/Wine_prediction.git)
 cd Wine_prediction
-```
-### 2. Środowisko wirtualne
-Stwórz i aktywuj środowisko:
-(Windows)
-```bash
 python -m venv venv
 venv\Scripts\activate
-```
-### 3. Instalacja bibliotek
-```bash
 pip install -r requirements.txt
 ```
+### 3. Zasilenie bazy (ETL)
+Uruchom skrypt, aby przenieść dane z plików CSV do SQL Server:
+```bash
+python etl_process.py
+```
+
 ### 4. Uruchomienie aplikacji
 ```bash
-python main.py
+python app.py
 ```
 Aplikacja będzie dostępna pod adresem: http://127.0.0.1:5000/
 
