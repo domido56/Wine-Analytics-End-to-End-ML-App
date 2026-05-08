@@ -78,8 +78,8 @@ Projekt zawiera aplikację webową umożliwiającą predykcję koloru wina na po
 ![Dashboard Power BI](docs/dashboard_screenshot.png)
 
 ### Interpretacja wyników z dashboardu
-- **Udział win białych i czerwonych** Większość próbek w bazie stanowią wina białe (~75%), co odzwierciedla naturalny rozkład w użytym zbiorze danych. Modele zostały jednak przygotowane na tę dysproporcję dzięki zastosowaniu techniki SMOTE podczas trenowania.
-- **Wpływ kwasowości lotnej (Volatile Acidity) na jakość** Wykres słupkowy pokazuje trend spadkowy: wina oceniane jako najwyższej jakości (7, 8, 9) posiadają średnio znacznie niższą kwasowość lotną niż wina słabsze. Potwierdza to hipotezę, że wysoka zawartość kwasu octowego negatywnie wpływa na ocenę sensoryczną wina.
+- **Udział win białych i czerwonych**: Większość próbek w bazie stanowią wina białe (~75%), co odzwierciedla naturalny rozkład w użytym zbiorze danych. Modele zostały jednak przygotowane na tę dysproporcję dzięki zastosowaniu techniki SMOTE podczas trenowania.
+- **Wpływ kwasowości lotnej (Volatile Acidity) na jakość**: Wykres słupkowy pokazuje trend spadkowy: wina oceniane jako najwyższej jakości (7, 8, 9) posiadają średnio znacznie niższą kwasowość lotną niż wina słabsze. Potwierdza to hipotezę, że wysoka zawartość kwasu octowego negatywnie wpływa na ocenę sensoryczną wina.
 
 ## Instalacja i uruchomienie
 ### 1. Baza Danych
